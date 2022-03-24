@@ -1,8 +1,13 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import 'react-toastify/dist/ReactToastify.css';
+//toaster
 import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+//confirm alert css
+import 'react-confirm-alert/src/react-confirm-alert.css';
+//router
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+//components
 import Navbar from "./Components/Navbar"
 import AddPost from "./Components/AddPost"
 import EditPost from "./Components/EditPost"

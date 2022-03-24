@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import ReactPaginate from 'react-paginate';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {confirmAlert} from 'react-confirm-alert';
+import {toast} from 'react-toastify';
+import Loader from './Loader';
 
 const Posts = () => {
     // We start with an empty list of items.
@@ -20,20 +23,57 @@ const Posts = () => {
         setItemOffset(newOffset);
     };
 
-    useEffect(   async () => {
-        console.log("UseEffect",loading);
+    const paginate=async (itemOffset, itemsPerPage)=>{
         const result= await axios.get('http://localhost:3001/posts?limit='+itemsPerPage+'&offset='+itemOffset)
         const response= result.data;
 
         setCurrentItems(response.items);
         setItemsCount(response.itemCount);
         setPageCount(Math.ceil(response.itemCount / itemsPerPage));
+    }
+
+    useEffect(   async () => {
+        console.log("UseEffect",loading);
+        await paginate(itemOffset, itemsPerPage);
         setLoading(true)
         console.log("UseEffect",loading);
 
     },  [itemOffset, itemsPerPage]);
 
-    if(loading===false) return "Loading...";
+    const deleteSubmit=(id)=>{
+        //alert(id);
+        confirmAlert({
+            title: 'Confirm Delete!',
+            message: 'Are you sure to do this.',
+            buttons: [
+                {
+                    label: 'Yes',
+                    onClick: async () => {
+                        //alert('Click Yes')
+                        const result= await axios.delete(`http://localhost:3001/delete-post/${id}`)
+                        const response= result.data;
+
+                        if (response.status){
+                            await paginate(itemOffset, itemsPerPage);
+                            toast(response.message)
+                        }
+                        else{
+                            toast('Something went wrong.')
+                        }
+                    }
+                },
+                {
+                    label: 'No',
+                    onClick: () => {
+                        //alert('Click No')
+                        toast('Post is safe!')
+                    }
+                }
+            ]
+        });
+    }
+
+    if(loading===false) return <Loader/>;
     return(
         <div className="table-responsive">
             <table className="table">
@@ -54,8 +94,8 @@ const Posts = () => {
                             <td>{item.title}</td>
                             <td>{item.description}</td>
                             <td>
-                                <Link to={`/edit/${item._id}`} className="btn btn-primary">Edit</Link>
-                                <button type="button" className="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
+                                <Link to={`/edit/${item._id}`} className="btn btn-primary btn-sm mr-2">Edit</Link>
+                                <button onClick={() => deleteSubmit(item._id)} type="button" className="btn btn-danger btn-sm">
                                     Delete
                                 </button>
                             </td>

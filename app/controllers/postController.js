@@ -57,7 +57,7 @@ exports.delete= async (req, res) => {
 
         return res.status(200).json({
             status:true,
-            message: "Forecast deleted successfully."
+            message: "Deleted successfully."
         })
     }
     catch (error) {
