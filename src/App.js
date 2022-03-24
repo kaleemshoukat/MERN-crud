@@ -1,5 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle";
 //toaster
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +13,7 @@ import Navbar from "./Components/Navbar"
 import AddPost from "./Components/AddPost"
 import EditPost from "./Components/EditPost"
 import Posts from "./Components/Posts"
+import Users from "./Components/Users"
 
 function App() {
     return(
@@ -25,6 +27,7 @@ function App() {
                         <Route path="/" element={ <Posts /> } />
                         <Route exact path="/add" element={ <AddPost /> } />
                         <Route exact path="/edit/:id" element={ <EditPost /> } />
+                        <Route exact path="/users" element={ <Users /> } />
                     </Routes>
                 </div>
             </Router>

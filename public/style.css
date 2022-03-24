@@ -21,6 +21,7 @@
     cursor: pointer;
     color: #ffffff !important;
     background-color: #0097A4;
+    text-decoration: none;
 }
 .pagination li a:hover, .pagination li.selected a {
     color: #0097A4 !important;

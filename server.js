@@ -4,6 +4,7 @@ const morgan= require('morgan');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const cors = require('cors');
+const fileupload = require("express-fileupload");
 const app = express();
 
 // Static Files (we dont need to write public word in the links)
@@ -30,7 +31,10 @@ app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//file uploading
+app.use(fileupload())
+
 // import the routes
-app.use(require('./app/routes/postRoutes'));
+app.use(require('./app/routes'));
 
 module.exports = app
