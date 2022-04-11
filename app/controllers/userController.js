@@ -4,6 +4,7 @@ const User=require('../models/user')
 exports.add=async (req, res) => {
     try{
         console.log(req.files);
+        console.log(req.body);
         const body=req.body
         const user=new User()
 
@@ -29,7 +30,6 @@ exports.add=async (req, res) => {
         user.email= body.email
         user.gender= body.gender
         user.password= body.password
-        user.profileImage= body.profileImage
         user.cgpa= body.cgpa
         user.country= body.country
         await user.save()
@@ -112,7 +112,6 @@ exports.update= async (req, res) => {
         user.email= body.email
         user.gender= body.gender
         user.password= body.password
-        user.profileImage= body.profileImage
         user.cgpa= body.cgpa
         user.country= body.country
         await user.save()
@@ -132,6 +131,22 @@ exports.update= async (req, res) => {
 
 exports.delete= async (req, res) => {
     try{
+        const user=await User.findById(req.params.id)
+
+        //delete old file
+        const oldProfileImage=user.profileImage
+        if (oldProfileImage){
+            fs.unlink('./public/uploads/'+oldProfileImage, (err) => {
+                if (err){
+                    return res.status(200).json({
+                        'status':false,
+                        'message': err.message
+                    })
+                }
+                console.log('File deleted!');
+            });
+        }
+
         await User.findByIdAndDelete(req.params.id)
 
         return res.status(200).json({

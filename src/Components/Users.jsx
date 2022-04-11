@@ -77,10 +77,10 @@ const Users=()=>{
     if(loading===false) return <Loader/>;
     return(
         <div className="container">
-            <AddUser />
             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                 Add User
             </button>
+            <AddUser />
             <div className="table-responsive">
                 <table className="table">
                     <thead>
@@ -105,7 +105,7 @@ const Users=()=>{
                                 <td>{item.email}</td>
                                 <td>{item.gender}</td>
                                 <td>{item.profileImage}</td>
-                                <td>{item.cgpa}</td>
+                                <td>{item.cgpa.$numberDecimal}</td>
                                 <td>{item.country}</td>
                                 <td>
                                     <Link to={`/edit/${item._id}`} className="btn btn-primary btn-sm mr-2">Edit</Link>
