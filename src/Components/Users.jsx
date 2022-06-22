@@ -104,7 +104,7 @@ const Users=()=>{
                                 <td>{item.name}</td>
                                 <td>{item.email}</td>
                                 <td>{item.gender}</td>
-                                <td>{item.profileImage}</td>
+                                <td><img src={`http://localhost:3001/uploads/${item.profileImage}`} height="50" width="50" alt="img" /></td>
                                 <td>{item.cgpa.$numberDecimal}</td>
                                 <td>{item.country}</td>
                                 <td>
