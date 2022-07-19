@@ -9,11 +9,11 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 //router
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 //components
-import Navbar from "./Components/Navbar"
-import AddPost from "./Components/AddPost"
-import EditPost from "./Components/EditPost"
-import Posts from "./Components/Posts"
-import Users from "./Components/Users"
+import Navbar from "./components/Navbar"
+import AddPost from "./pages/AddPost"
+import EditPost from "./pages/EditPost"
+import Posts from "./pages/Posts"
+import Users from "./pages/Users"
 
 function App() {
     return(

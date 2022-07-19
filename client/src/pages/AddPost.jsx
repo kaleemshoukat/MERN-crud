@@ -10,7 +10,7 @@ const AddPost=() => {
         e.preventDefault();
         const data={title, description}
         console.log(data)
-        const result=await axios.post('http://localhost:3001/add-post', data);
+        const result=await axios.post(process.env.REACT_APP_API_URL+'/add-post', data);
         const response=result.data
 
         if (response.status){

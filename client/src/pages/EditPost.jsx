@@ -10,7 +10,7 @@ const EditPost=() => {
     let navigate = useNavigate();
 
     useEffect(async ()=>{
-        const result=await axios.get('http://localhost:3001/edit-post/'+id);
+        const result=await axios.get(process.env.REACT_APP_API_URL+'/edit-post/'+id);
         const data=result.data.data
         // console.log(response)
 
@@ -23,7 +23,7 @@ const EditPost=() => {
         const data={title, description}
         console.log(data)
 
-        const result=await axios.put(`http://localhost:3001/update-post/${id}`, data);
+        const result=await axios.put(`${process.env.REACT_APP_API_URL}/update-post/${id}`, data);
         const response=result.data
 
         toast(response.message)

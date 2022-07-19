@@ -34,6 +34,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // import the routes
-app.use(require('./app/routes'));
+app.use('/api', require('./app/routes'));
 
 module.exports = app
