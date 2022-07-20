@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {toast} from 'react-toastify';
-import {useParams, useNavigate} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom';
+import {config} from "../constants/index";
 
 const EditPost=() => {
     const {id} = useParams();
@@ -10,7 +11,7 @@ const EditPost=() => {
     let navigate = useNavigate();
 
     useEffect(async ()=>{
-        const result=await axios.get(process.env.REACT_APP_API_URL+'/edit-post/'+id);
+        const result=await axios.get(process.env.REACT_APP_API_URL+'/edit-post/'+id, config);
         const data=result.data.data
         // console.log(response)
 
@@ -23,11 +24,11 @@ const EditPost=() => {
         const data={title, description}
         console.log(data)
 
-        const result=await axios.put(`${process.env.REACT_APP_API_URL}/update-post/${id}`, data);
+        const result=await axios.put(`${process.env.REACT_APP_API_URL}/update-post/${id}`, data, config);
         const response=result.data
 
         toast(response.message)
-        navigate('/')       //navigate to url
+        navigate('/posts')       //navigate to url
     }
 
     return(

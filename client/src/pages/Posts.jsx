@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import {confirmAlert} from 'react-confirm-alert';
 import {toast} from 'react-toastify';
 import Loader from '../components/Loader';
+import {config} from "../constants/index";
 
 const Posts = () => {
     // We start with an empty list of items.
@@ -24,7 +25,8 @@ const Posts = () => {
     };
 
     const paginate=async (itemOffset, itemsPerPage)=>{
-        const result= await axios.get(process.env.REACT_APP_API_URL+'/posts?limit='+itemsPerPage+'&offset='+itemOffset)
+        console.log(JSON.stringify(config))
+        const result= await axios.get(process.env.REACT_APP_API_URL+'/posts?limit='+itemsPerPage+'&offset='+itemOffset, config)
         const response= result.data;
 
         setCurrentItems(response.items);
@@ -50,7 +52,7 @@ const Posts = () => {
                     label: 'Yes',
                     onClick: async () => {
                         //alert('Click Yes')
-                        const result= await axios.delete(`${process.env.REACT_APP_API_URL}/delete-post/${id}`)
+                        const result= await axios.delete(`${process.env.REACT_APP_API_URL}/delete-post/${id}`, config)
                         const response= result.data;
 
                         if (response.status){

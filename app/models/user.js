@@ -44,6 +44,10 @@ var UserSchema =new Schema({
         max: 255,
         required: true,
     },
+    token: {
+        type: String,
+        default: ''
+    },
 },{
     timestamps: true
 });

@@ -5,7 +5,8 @@ import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
 import Loader from "../components/Loader";
 import {Button, Modal, ModalBody, ModalHeader, ModalTitle, ModalFooter} from "react-bootstrap";
-const Joi = require('joi');
+import {config} from "../constants/index";
+import Joi from "joi";
 
 const Users=()=>{
     // pagination
@@ -25,7 +26,7 @@ const Users=()=>{
     };
 
     const paginate=async (itemOffset, itemsPerPage)=>{
-        const result= await axios.get(process.env.REACT_APP_API_URL+'/users/list?limit='+itemsPerPage+'&offset='+itemOffset)
+        const result= await axios.get(process.env.REACT_APP_API_URL+'/users/list?limit='+itemsPerPage+'&offset='+itemOffset, config)
         const response= result.data;
 
         setCurrentItems(response.items);
@@ -52,7 +53,7 @@ const Users=()=>{
                     label: 'Yes',
                     onClick: async () => {
                         //alert('Click Yes')
-                        const result= await axios.delete(`${process.env.REACT_APP_API_URL}/users/delete/${id}`)
+                        const result= await axios.delete(`${process.env.REACT_APP_API_URL}/users/delete/${id}`, config)
                         const response= result.data;
 
                         if (response.status){
@@ -157,7 +158,7 @@ const Users=()=>{
             setErrors(errors);
         }
         else {
-            const result=await axios.post(process.env.REACT_APP_API_URL+'/users/add', formData);
+            const result=await axios.post(process.env.REACT_APP_API_URL+'/users/add', formData, config);
             const response=result.data
 
             if (response.status){
@@ -180,7 +181,7 @@ const Users=()=>{
         setErrors({});
     };
     const handleShowEdit = async (id) => {
-        const result=await axios.get(process.env.REACT_APP_API_URL+'/users/edit/'+id);
+        const result=await axios.get(process.env.REACT_APP_API_URL+'/users/edit/'+id, config);
         const response=result.data
 
         if (response.status){
@@ -253,7 +254,7 @@ const Users=()=>{
             setErrors(errors);
         }
         else {
-            const result=await axios.post(process.env.REACT_APP_API_URL+'/users/add', formData);
+            const result=await axios.post(process.env.REACT_APP_API_URL+'/users/add', formData, config);
             const response=result.data
 
             if (response.status){
@@ -429,7 +430,7 @@ const Users=()=>{
                                 <td>{item.name}</td>
                                 <td>{item.email}</td>
                                 <td>{item.gender}</td>
-                                <td><img src={`http://localhost:3001/uploads/${item.profileImage}`} height="50" width="50" alt="img" /></td>
+                                <td><img src={item.profileImage ? `http://localhost:3001/uploads/${item.profileImage}` : ''} height="50" width="50" alt="img" /></td>
                                 <td>{item.cgpa.$numberDecimal}</td>
                                 <td>{item.country}</td>
                                 <td>

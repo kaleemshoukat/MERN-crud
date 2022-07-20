@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import axios from "axios";
 import {toast} from 'react-toastify';
+import {config} from "../constants/index";
 
 const AddPost=() => {
     const [title , setTitle] = useState("")
@@ -10,7 +11,7 @@ const AddPost=() => {
         e.preventDefault();
         const data={title, description}
         console.log(data)
-        const result=await axios.post(process.env.REACT_APP_API_URL+'/add-post', data);
+        const result=await axios.post(process.env.REACT_APP_API_URL+'/add-post', data, config);
         const response=result.data
 
         if (response.status){
