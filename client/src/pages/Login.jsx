@@ -4,10 +4,7 @@ import Joi from "joi";
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 
-const Login=(props) => {
-    const {setShowComp} = props;
-    setShowComp(false);
-
+const Login=() => {
     let navigate = useNavigate();
 
     const [errors, setErrors] = useState({});
