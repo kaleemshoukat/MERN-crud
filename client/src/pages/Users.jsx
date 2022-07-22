@@ -186,7 +186,13 @@ const Users=()=>{
 
         if (response.status){
             const data=response.data
-            setValues({ name: data.name });
+            setValues(data);
+            console.log(Values)
+            // console.log(data)
+            // Object.keys(data).map((key) =>{
+            //     console.log(key,data[key])
+            //     setValues({ ...Values,[key]: data[key]});
+            // })
 
             setErrors({});
             setShowEdit(true);
@@ -353,24 +359,31 @@ const Users=()=>{
                             <div className="row">
                                 <div className="col-md-6">
                                     <label>Name</label>
-                                    <input type="text" name="name" onChange={changeHandler} className="form-control" />
+                                    <input type="text" name="name" value={Values.name}  onChange={changeHandler} className="form-control" />
                                     {errors.name && (<label className="error text-danger">{errors.name}</label>)}
                                 </div>
                                 <div className="col-md-6">
                                     <label>Email</label>
-                                    <input type="text" name="email" onChange={changeHandler} className="form-control" />
+                                    <input type="text" value={Values.email} name="email" onChange={changeHandler} className="form-control" />
                                     {errors.email && (<label className="error text-danger">{errors.email}</label>)}
                                 </div>
                                 <div className="col-md-6">
                                     <label>Password</label>
-                                    <input type="password" name="password" onChange={changeHandler} className="form-control" />
+                                    <input type="password" name="password" value={Values.password} onChange={changeHandler} className="form-control" />
                                     {errors.password && (<label className="error text-danger">{errors.password}</label>)}
                                 </div>
                                 <div className="col-md-6">
                                     <label>Gender</label>
                                     <div onChange={changeHandler}>
-                                        <input type="radio" name="gender" value="Male" /> Male
-                                        <input type="radio" name="gender" value="Female" /> Female
+                                        {
+                                            console.log(Values.gender)
+                                        }
+                                        <input type="radio" name="gender"
+                                               checked={Values.gender==="Male" ? "checked" : ""}
+                                           value="Male" /> Male
+                                        <input type="radio" name="gender"
+                                               checked={Values.gender==="Female" ? "checked" : ""}
+                                           value="Female" /> Female
                                     </div>
                                     {errors.gender && (<label className="error text-danger">{errors.gender}</label>)}
                                 </div>

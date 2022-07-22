@@ -53,20 +53,25 @@ const Login=() => {
             setErrors(errors);
         }
         else {
-            const result=await axios.post(process.env.REACT_APP_API_URL+'/login', formData);
-            const response=result.data
+            try {
+                const result=await axios.post(process.env.REACT_APP_API_URL+'/login', formData);
+                const response=result.data
 
-            if (response.status){
-                event.target.reset();
-                console.log(response);
+                if (response.status){
+                    event.target.reset();
+                    console.log(response);
 
-                const user=response.data.user
-                sessionStorage.setItem('token', user.token);
+                    const user=response.data.user
+                    sessionStorage.setItem('token', user.token);
 
-                navigate('/posts');
+                    navigate('/posts');
+                }
+                else{
+                    toast(response.message)
+                }
             }
-            else{
-                toast(response.message)
+            catch (e) {
+                toast(e.message)
             }
         }
     }

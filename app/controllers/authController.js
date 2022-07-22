@@ -20,7 +20,7 @@ exports.login= async (req, res) => {
             return res.status(200).send(apiResponse.success("Success!", data))
         }
         else{
-            return res.status(422).send(apiResponse.error('Email or password is incorrect.'))
+            return res.status(200).send(apiResponse.error('Email or password is incorrect.'))
         }
     }
     catch (error){

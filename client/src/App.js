@@ -11,7 +11,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 //browser history
 import { createBrowserHistory } from "history";
 //routes
-import {authRoutes, appRoutes} from "./routes"
+import {appRoutes} from "./routes"
 
 function App() {
 
@@ -25,16 +25,13 @@ function App() {
     if(!token || token==='') {
         history.push('/');
     }
-
     // console.log('token' ,token);
-    // console.log('showComp' ,showComp);
 
     return(
         <>
             <Router>
                 {/*this is routes registry of all app*/}
                 <Routes>
-                    {authRoutes}
                     {appRoutes}
                 </Routes>
             </Router>

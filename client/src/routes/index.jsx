@@ -11,20 +11,19 @@ import EditPost from "../pages/EditPost";
 import Users from "../pages/Users";
 import Page404 from "../components/errors/Page404";
 
-const authRoutes = [
-    <Route element={<AuthLayout />} >
-        <Route exact path="/" element={ <Login /> } />
-        <Route path="*" element={ <Page404 /> } />
-    </Route>
-]
-
 const appRoutes = [
-    <Route element={<AppLayout />}>
-        <Route exact path="/posts" element={ <Posts /> } />
-        <Route exact path="/add" element={ <AddPost /> } />
-        <Route exact path="/edit/:id" element={ <EditPost /> } />
-        <Route exact path="/users" element={ <Users /> } />
-    </Route>
+    <>
+        <Route element={<AuthLayout />} >
+            <Route exact path="/" element={ <Login /> } />
+            <Route path="*" element={ <Page404 /> } />
+        </Route>
+        <Route element={<AppLayout />}>
+            <Route exact path="/posts" element={ <Posts /> } />
+            <Route exact path="/add" element={ <AddPost /> } />
+            <Route exact path="/edit/:id" element={ <EditPost /> } />
+            <Route exact path="/users" element={ <Users /> } />
+        </Route>
+    </>
 ]
 
-export { authRoutes, appRoutes };
+export { appRoutes };
