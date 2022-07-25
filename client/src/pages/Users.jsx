@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
-import axios from "axios";
 import ReactPaginate from "react-paginate";
 import {confirmAlert} from "react-confirm-alert";
 import {toast} from "react-toastify";
 import Loader from "../components/Loader";
 import {Button, Modal, ModalBody, ModalHeader, ModalTitle, ModalFooter} from "react-bootstrap";
-import {config} from "../constants/index";
+import UserDataService from "../services/user.service";
 import Joi from "joi";
 
 const Users=()=>{
@@ -26,7 +25,7 @@ const Users=()=>{
     };
 
     const paginate=async (itemOffset, itemsPerPage)=>{
-        const result= await axios.get(process.env.REACT_APP_API_URL+'/users/list?limit='+itemsPerPage+'&offset='+itemOffset, config)
+        const result= await UserDataService.getAll(itemsPerPage, itemOffset)
         const response= result.data;
 
         setCurrentItems(response.items);
@@ -53,7 +52,7 @@ const Users=()=>{
                     label: 'Yes',
                     onClick: async () => {
                         //alert('Click Yes')
-                        const result= await axios.delete(`${process.env.REACT_APP_API_URL}/users/delete/${id}`, config)
+                        const result= await UserDataService.delete(id)
                         const response= result.data;
 
                         if (response.status){
@@ -158,7 +157,7 @@ const Users=()=>{
             setErrors(errors);
         }
         else {
-            const result=await axios.post(process.env.REACT_APP_API_URL+'/users/add', formData, config);
+            const result=await UserDataService.create(formData);
             const response=result.data
 
             if (response.status){
@@ -181,7 +180,7 @@ const Users=()=>{
         setErrors({});
     };
     const handleShowEdit = async (id) => {
-        const result=await axios.get(process.env.REACT_APP_API_URL+'/users/edit/'+id, config);
+        const result=await UserDataService.edit(id);
         const response=result.data
 
         if (response.status){
@@ -269,7 +268,7 @@ const Users=()=>{
             setErrors(errors);
         }
         else {
-            const result=await axios.put(process.env.REACT_APP_API_URL+'/users/update/'+formData.id, formData, config);
+            const result=await UserDataService.update(formData.id, formData);
             const response=result.data
 
             if (response.status){
