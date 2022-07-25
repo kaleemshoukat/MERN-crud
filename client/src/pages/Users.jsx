@@ -186,9 +186,18 @@ const Users=()=>{
 
         if (response.status){
             const data=response.data
-            setValues(data);
-            console.log(Values)
-            // console.log(data)
+
+            Values._id=data._id
+            Values.name=data.name
+            Values.email=data.email
+            Values.cgpa=data.cgpa.$numberDecimal
+            Values.password=data.password
+            Values.gender=data.gender
+            Values.country=data.country
+
+            //setValues(data);
+            //console.log(Values)
+            //console.log(data)
             // Object.keys(data).map((key) =>{
             //     console.log(key,data[key])
             //     setValues({ ...Values,[key]: data[key]});
@@ -260,12 +269,12 @@ const Users=()=>{
             setErrors(errors);
         }
         else {
-            const result=await axios.post(process.env.REACT_APP_API_URL+'/users/add', formData, config);
+            const result=await axios.put(process.env.REACT_APP_API_URL+'/users/update/'+formData.id, formData, config);
             const response=result.data
 
             if (response.status){
                 event.target.reset();
-                setShow(false);
+                setShowEdit(false);
                 toast(response.message);
                 paginate(itemOffset, itemsPerPage);
             }
@@ -355,6 +364,7 @@ const Users=()=>{
                 </Modal.Header>
                 <form onSubmit={handleSubmitEdit} className="create-form" encType="multipart/form-data">
                     <Modal.Body>
+                        <input type="hidden" name="id" value={Values._id}/>
                         <div className="col-md-12">
                             <div className="row">
                                 <div className="col-md-6">
@@ -364,7 +374,7 @@ const Users=()=>{
                                 </div>
                                 <div className="col-md-6">
                                     <label>Email</label>
-                                    <input type="text" value={Values.email} name="email" onChange={changeHandler} className="form-control" />
+                                    <input type="text" name="email" value={Values.email} readOnly onChange={changeHandler} className="form-control" />
                                     {errors.email && (<label className="error text-danger">{errors.email}</label>)}
                                 </div>
                                 <div className="col-md-6">
@@ -375,9 +385,6 @@ const Users=()=>{
                                 <div className="col-md-6">
                                     <label>Gender</label>
                                     <div onChange={changeHandler}>
-                                        {
-                                            console.log(Values.gender)
-                                        }
                                         <input type="radio" name="gender"
                                                checked={Values.gender==="Male" ? "checked" : ""}
                                            value="Male" /> Male
@@ -394,15 +401,15 @@ const Users=()=>{
                                 </div>
                                 <div className="col-md-6">
                                     <label>CGPA</label>
-                                    <input type="number" name="cgpa" onChange={changeHandler} className="form-control" />
+                                    <input type="number" name="cgpa" value={Values.cgpa} onChange={changeHandler} className="form-control" />
                                     {errors.cgpa && (<label className="error text-danger">{errors.cgpa}</label>)}
                                 </div>
                                 <div className="col-md-6">
                                     <label>Country</label>
                                     <select name="country" onChange={changeHandler} className="form-control">
                                         <option value="">Select Option</option>
-                                        <option value="Pakistan">Pakistan</option>
-                                        <option value="India">India</option>
+                                        <option value="Pakistan" selected={Values.country==="Pakistan" ? "selected" : ""}>Pakistan</option>
+                                        <option value="India" selected={Values.country==="India" ? "selected" : ""}>India</option>
                                     </select>
                                     {errors.country && (<label className="error text-danger">{errors.country}</label>)}
                                 </div>

@@ -27,11 +27,12 @@ if (process.env.NODE_ENV === 'development') {
 app.use(helmet())
 /*Resource Sharing*/
 app.use(cors())
-/*file uploading*/
-app.use(fileupload())
 /*JSON Input Handling*/
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+/*file uploading*/
+app.use(fileupload())
 
 // import the routes
 app.use('/api', require('./app/routes'));

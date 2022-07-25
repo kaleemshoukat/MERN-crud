@@ -74,7 +74,7 @@ exports.update= async (req, res) => {
     try{
         const body=req.body
         const user=await User.findById(req.params.id)
-
+        console.log(req.files)
         if (req.files){
             var profileImage = req.files.profileImage
             var newName=Date.now()+'-'+profileImage.name
@@ -109,7 +109,6 @@ exports.update= async (req, res) => {
 
         //update in DB
         user.name= body.name
-        user.email= body.email
         user.gender= body.gender
         user.password= body.password
         user.cgpa= body.cgpa
@@ -122,7 +121,7 @@ exports.update= async (req, res) => {
         })
     }
     catch (error) {
-        res.status(500).json({
+        res.status(error.status || 500).json({
             status:false,
             message: error.message
         });
