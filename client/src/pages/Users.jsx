@@ -6,8 +6,12 @@ import Loader from "../components/Loader";
 import {Button, Modal, ModalBody, ModalHeader, ModalTitle, ModalFooter} from "react-bootstrap";
 import UserDataService from "../services/user.service";
 import Joi from "joi";
+import { useDispatch } from 'react-redux';
+import * as actions from '../actions';
 
 const Users=()=>{
+    const dispatch = useDispatch()
+
     // pagination
     const itemsPerPage=10
     const [currentItems, setCurrentItems] = useState(null);
@@ -25,8 +29,8 @@ const Users=()=>{
     };
 
     const paginate=async (itemOffset, itemsPerPage)=>{
-        const result= await UserDataService.getAll(itemsPerPage, itemOffset)
-        const response= result.data;
+        const response=await dispatch(actions.getAllUser(itemsPerPage, itemOffset));
+        // console.log(response)
 
         setCurrentItems(response.items);
         setItemsCount(response.itemCount);
@@ -52,8 +56,8 @@ const Users=()=>{
                     label: 'Yes',
                     onClick: async () => {
                         //alert('Click Yes')
-                        const result= await UserDataService.delete(id)
-                        const response= result.data;
+                        const response=await dispatch(actions.deleteUser(id))
+                        // console.log(response);
 
                         if (response.status){
                             await paginate(itemOffset, itemsPerPage);
@@ -157,8 +161,8 @@ const Users=()=>{
             setErrors(errors);
         }
         else {
-            const result=await UserDataService.create(formData);
-            const response=result.data
+            const response=await dispatch(actions.createUser(formData));
+            console.log(response);
 
             if (response.status){
                 event.target.reset();
@@ -268,8 +272,8 @@ const Users=()=>{
             setErrors(errors);
         }
         else {
-            const result=await UserDataService.update(formData.id, formData);
-            const response=result.data
+            const response=await dispatch(actions.updateUser(formData.id, formData))
+            console.log(response);
 
             if (response.status){
                 event.target.reset();
