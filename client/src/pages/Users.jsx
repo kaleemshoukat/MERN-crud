@@ -8,6 +8,7 @@ import UserDataService from "../services/user.service";
 import Joi from "joi";
 import { useDispatch } from 'react-redux';
 import * as actions from '../actions';
+import Chart from '../components/users/Chart';
 
 const Users=()=>{
     const dispatch = useDispatch()
@@ -30,7 +31,7 @@ const Users=()=>{
 
     const paginate=async (itemOffset, itemsPerPage)=>{
         const response=await dispatch(actions.getAllUser(itemsPerPage, itemOffset));
-        // console.log(response)
+        console.log(response)
 
         setCurrentItems(response.items);
         setItemsCount(response.itemCount);
@@ -481,6 +482,8 @@ const Users=()=>{
                     />
                 </div>
             </div>
+
+            <Chart />
         </div>
     );
 }

@@ -23,6 +23,11 @@ export default (state = {}, action) => {
                 ...state
             };
 
+        case userConstants.USER_CHART:
+            return {
+                ...state
+            };
+
         default:
             return state
     }

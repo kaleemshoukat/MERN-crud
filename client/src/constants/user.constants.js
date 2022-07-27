@@ -3,4 +3,5 @@ export const userConstants = {
     USER_LIST: 'USER_LIST',
     USER_UPDATE: 'USER_UPDATE',
     USER_DELETE: 'USER_DELETE',
+    USER_CHART: 'USER_CHART',
 };
