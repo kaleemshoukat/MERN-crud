@@ -483,6 +483,7 @@ const Users=()=>{
                 </div>
             </div>
 
+            {/*chart js component*/}
             <Chart />
         </div>
     );

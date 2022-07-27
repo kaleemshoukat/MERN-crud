@@ -27,12 +27,12 @@ const Chart=() =>{
         let data=[];
         const chartData=response.data
 
-        chartData ?.map((item) => {
+        chartData.map((item) => {
             labels.push(item.month)
             data.push(item.numberofdocuments)
         })
-        console.log(labels)
-        console.log(data)
+        // console.log(labels)
+        // console.log(data)
 
         setChartData({
             labels: labels,
