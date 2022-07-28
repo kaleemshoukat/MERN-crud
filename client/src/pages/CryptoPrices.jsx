@@ -14,6 +14,9 @@ const CryptoPrices=()=>{
             setLoading(true)
             console.log(data)
         });
+
+        // CLEAN UP THE EFFECT
+        return () => socket.disconnect();
     }, []);
 
     if(loading===false) return <Loader/>;
