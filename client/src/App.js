@@ -28,7 +28,7 @@ function App() {
     // console.log('token' ,token);
 
     return(
-        <>
+        <div className="main-warp">
             <Router>
                 {/*this is routes registry of all app*/}
                 <Routes>
@@ -36,7 +36,7 @@ function App() {
                 </Routes>
             </Router>
             <ToastContainer />     {/* toaster here*/}
-        </>
+        </div>
     );
 }
 

@@ -38,6 +38,11 @@ const Navbar=()=>{
                         Users
                     </Link>
                 </li>
+                <li className="nav-item">
+                    <Link to="/crypto" className="nav-link">
+                        Crypto Prices
+                    </Link>
+                </li>
                 <li className="nav-item" onClick={logout}>
                     <a className="nav-link">
                         Logout

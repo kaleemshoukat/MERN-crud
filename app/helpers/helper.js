@@ -61,3 +61,7 @@ exports.base_url= () => {
 
     return `${host}:${port}`
 }
+
+exports.sleep= (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

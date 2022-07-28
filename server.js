@@ -1,19 +1,48 @@
 const express = require('express');
 const bodyParser= require('body-parser');
 const morgan= require('morgan');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 const helmet = require('helmet');
 const cors = require('cors');
 const fileupload = require("express-fileupload");
 const app = express();
+const server = require('http').Server(app);     //always require on top
+const io = require('socket.io')(server, {
+    cors: {
+        origin: '*',
+    }
+});
+const socketHelper=require('./app/helpers/socketHelper')
 
 // Static Files (we dont need to write public word in the links)
 app.use(express.static('public'));
 
 //set listener
-dotenv.config();
 const port = process.env.API_PORT;
-app.listen(port, () => { console.log(`App running on port ${port}`) });
+server.listen(port, () => { console.log(`App running on port ${port}`) });
+
+let interval;
+io.on('connection', socket => {
+    console.log(`socket is connected`)
+
+    socket.on('disconnect', () => {
+        console.log('socket disconnected');
+    });
+
+    if (interval) {
+        clearInterval(interval);
+    }
+
+    interval= setInterval(async () =>{
+        const data= await socketHelper.tickers()
+
+        io.emit('crypto-prices', data)
+        console.log('emitted from server!')
+    }, 5000)
+});
+
+//set in all files
+app.set('io', io);
 
 //DB connection
 require('./config/db');

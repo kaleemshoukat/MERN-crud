@@ -9,6 +9,7 @@ import Posts from "../pages/Posts";
 import AddPost from "../pages/AddPost";
 import EditPost from "../pages/EditPost";
 import Users from "../pages/Users";
+import CryptoPrices from "../pages/CryptoPrices";
 import Page404 from "../components/errors/Page404";
 
 const appRoutes = [
@@ -22,6 +23,7 @@ const appRoutes = [
             <Route exact path="/add" element={ <AddPost /> } />
             <Route exact path="/edit/:id" element={ <EditPost /> } />
             <Route exact path="/users" element={ <Users /> } />
+            <Route exact path="/crypto" element={ <CryptoPrices /> } />
         </Route>
     </>
 ]
