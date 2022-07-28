@@ -27,19 +27,20 @@ io.on('connection', socket => {
 
     socket.on('disconnect', () => {
         console.log('socket disconnected');
+        clearInterval(interval);
     });
 
     if (interval) {
         clearInterval(interval);
     }
-
-    interval= setInterval(async () =>{
-        const data= await socketHelper.tickers()
-
-        io.emit('crypto-prices', data)
-        console.log('emitted from server!')
-    }, 5000)
+    interval = setInterval(() => getApiAndEmit(), 3000);
 });
+
+const getApiAndEmit = async () => {
+    const data= await socketHelper.tickers()
+    io.emit('crypto-prices', data)
+    console.log('emitted from server!')
+};
 
 //set in all files
 app.set('io', io);
