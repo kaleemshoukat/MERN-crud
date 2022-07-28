@@ -6,6 +6,7 @@ const authMiddleware= require('../middlewares/authMiddleware')
 
 //routes
 router.post('/login', authController.login);
+router.post('/login-social', authController.loginSocial);
 
 router.use(authMiddleware.authenticateTokenApi)
 router.get('/logout', authController.logout)

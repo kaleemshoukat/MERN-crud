@@ -48,6 +48,17 @@ var UserSchema =new Schema({
         type: String,
         default: ''
     },
+    provider: {
+        type: String,
+        max: 255,
+        default: '',
+        enum: ['google', 'facebook', '']
+    },
+    provider_id: {
+        type: String,
+        max: 255,
+        default: ''
+    },
 },{
     timestamps: true
 });

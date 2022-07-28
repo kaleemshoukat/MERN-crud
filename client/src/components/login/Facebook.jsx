@@ -10,8 +10,8 @@ const Facebook=()=>{
 
         if (response.accessToken) {
             //
-
-        } else {
+        }
+        else {
             toast("Something went wrong.")
         }
     }
