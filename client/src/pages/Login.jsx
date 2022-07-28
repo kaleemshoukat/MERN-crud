@@ -3,6 +3,8 @@ import axios from "axios";
 import Joi from "joi";
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
+import Google from "../components/login/Google";
+import Facebook from "../components/login/Facebook";
 
 const Login=() => {
     let navigate = useNavigate();
@@ -103,6 +105,10 @@ const Login=() => {
                         </form>
                     </div>
                 </div>
+
+                <Google />
+                <Facebook />
+
             </div>
         </div>
     )
