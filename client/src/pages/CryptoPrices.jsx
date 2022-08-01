@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from "react";
 import socketIOClient from "socket.io-client";
 import Loader from "../components/Loader";
+//gallery
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from 'react-image-gallery';
+//silk slider
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const CryptoPrices=()=>{
     const [response, setResponse] = useState("")
@@ -18,6 +25,57 @@ const CryptoPrices=()=>{
         // CLEAN UP THE EFFECT
         return () => socket.disconnect();
     }, []);
+
+    const images = [
+        {
+            original: 'https://picsum.photos/id/1018/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1018/250/150/',
+        },
+        {
+            original: 'https://picsum.photos/id/1015/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1015/250/150/',
+        },
+        {
+            original: 'https://picsum.photos/id/1019/1000/600/',
+            thumbnail: 'https://picsum.photos/id/1019/250/150/',
+        },
+    ];
+
+    var settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+            // You can unslick at a given breakpoint now by adding:
+            // settings: "unslick"
+            // instead of a settings object
+        ]
+    };
 
     if(loading===false) return <Loader/>;
     return(
@@ -55,6 +113,37 @@ const CryptoPrices=()=>{
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="mt-5">
+                <ImageGallery items={images} />
+            </div>
+            <div className="mt-5 text-center">
+                <Slider {...settings}>
+                    <div className="m-2">
+                        <img src="https://picsum.photos/id/1019/1000/600/" alt="img"/>
+                        <h3>Test Name</h3>
+                    </div>
+                    <div className="m-2">
+                        <img src="https://picsum.photos/id/1019/1000/600/" alt="img"/>
+                        <h3>Test Name</h3>
+                    </div>
+                    <div className="m-2">
+                        <img src="https://picsum.photos/id/1019/1000/600/" alt="img"/>
+                        <h3>Test Name</h3>
+                    </div>
+                    <div className="m-2">
+                        <img src="https://picsum.photos/id/1019/1000/600/" alt="img"/>
+                        <h3>Test Name</h3>
+                    </div>
+                    <div className="m-2">
+                        <img src="https://picsum.photos/id/1019/1000/600/" alt="img"/>
+                        <h3>Test Name</h3>
+                    </div>
+                    <div className="m-2">
+                        <img src="https://picsum.photos/id/1019/1000/600/" alt="img"/>
+                        <h3>Test Name</h3>
+                    </div>
+                </Slider>
             </div>
         </div>
     )

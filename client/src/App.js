@@ -6,6 +6,8 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //confirm alert css
 import 'react-confirm-alert/src/react-confirm-alert.css';
+//style
+import './App.css'
 //router
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 //browser history
