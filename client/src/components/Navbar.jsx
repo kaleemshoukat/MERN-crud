@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import axios from "axios";
-import {config} from "../constants/index";
+import AuthDataService from "../services/auth.service";
 import {useNavigate} from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -9,7 +8,7 @@ const Navbar=()=>{
     let navigate = useNavigate();
 
     const logout= async ()=>{
-        const result= await axios.get(process.env.REACT_APP_API_URL+'/logout', config)
+        const result= await AuthDataService.logout()
         const response= result.data;
 
         if (response.status){
@@ -22,6 +21,7 @@ const Navbar=()=>{
 
     function changeLanguage(e) {
         i18n.changeLanguage(e.target.value);
+        localStorage.setItem('localization', e.target.value);
     }
 
     return (

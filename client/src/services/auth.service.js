@@ -7,6 +7,9 @@ class AuthDataService {
     loginSocial(data) {
         return http.post(`/login-social`, data);
     }
+    logout() {
+        return http.get(`/logout`);
+    }
 }
 
 export default new AuthDataService();
