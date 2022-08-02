@@ -9,9 +9,12 @@ import Joi from "joi";
 import { useDispatch } from 'react-redux';
 import * as actions from '../actions';
 import Chart from '../components/users/Chart';
+//localization
+import { useTranslation } from 'react-i18next';
 
 const Users=()=>{
     const dispatch = useDispatch()
+    const { t } = useTranslation();
 
     // pagination
     const itemsPerPage=10
@@ -292,9 +295,12 @@ const Users=()=>{
     if(loading===false) return <Loader/>;
     return(
         <div className="container">
-            <Button variant="primary" onClick={handleShow}>
-                Add User
-            </Button>
+            <div className="col-md-12">
+                <h4 className="text-danger">{t('user.add user')}</h4>
+                <Button variant="primary" onClick={handleShow}>
+                    {t('user.add user')}
+                </Button>
+            </div>
 
             {/*Add model*/}
             <Modal show={show} onHide={handleClose}>

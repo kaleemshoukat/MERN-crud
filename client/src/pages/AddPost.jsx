@@ -1,9 +1,11 @@
 import React, {useState} from "react";
-import axios from "axios";
 import {toast} from 'react-toastify';
-import {config} from "../constants/index";
+import PostDataService from "../services/post.service";
+//localization
+import { useTranslation } from 'react-i18next';
 
 const AddPost=() => {
+    const { t } = useTranslation();
     const [title , setTitle] = useState("")
     const [description , setDescription] = useState("")
 
@@ -11,7 +13,7 @@ const AddPost=() => {
         e.preventDefault();
         const data={title, description}
         console.log(data)
-        const result=await axios.post(process.env.REACT_APP_API_URL+'/add-post', data, config);
+        const result=await PostDataService.create(data);
         const response=result.data
 
         if (response.status){
@@ -28,6 +30,9 @@ const AddPost=() => {
         <div className="col-md-12">
             <form onSubmit={handleSubmit}>
                 <div className="row">
+                    <div className="col-md-12">
+                        <h4 className="text-danger">{t('post.add post')}</h4>
+                    </div>
                     <div className="col-md-12">
                         <div className="form-group">
                             <label>Title</label>

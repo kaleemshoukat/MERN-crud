@@ -1,8 +1,11 @@
 import http from "../http-common";
 
 class AuthDataService {
-    loginSocial() {
-        return http.post(`/login-social`);
+    login(data) {
+        return http.post(`/login`, data);
+    }
+    loginSocial(data) {
+        return http.post(`/login-social`, data);
     }
 }
 

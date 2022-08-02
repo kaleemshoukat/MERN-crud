@@ -8,8 +8,11 @@ import ImageGallery from 'react-image-gallery';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+//localization
+import { useTranslation } from 'react-i18next';
 
 const CryptoPrices=()=>{
+    const { t } = useTranslation();
     const [response, setResponse] = useState("")
     const [loading, setLoading] = useState(false)
     const ENDPOINT=process.env.REACT_APP_SOCKET_URL
@@ -81,6 +84,9 @@ const CryptoPrices=()=>{
     return(
         <div className="col-md-12">
             <div className="row d-flex h-100 align-items-center">
+                <div className="col-md-12">
+                    <h4 className="text-danger">{t('crypto')}</h4>
+                </div>
                 <div className="col-md-3">
                     <div className="card rounded-3 bg-primary text-light mt-2">
                         <div className="card-body">
@@ -114,10 +120,16 @@ const CryptoPrices=()=>{
                     </div>
                 </div>
             </div>
-            <div className="mt-5">
+            <div className="col-md-12 mt-5">
+                <h4 className="text-danger">{t('gallery')}</h4>
+            </div>
+            <div className="mt-2">
                 <ImageGallery items={images} />
             </div>
-            <div className="mt-5 text-center">
+            <div className="col-md-12 mt-5">
+                <h4 className="text-danger">{t('slick')}</h4>
+            </div>
+            <div className="mt-2 text-center">
                 <Slider {...settings}>
                     <div className="m-2">
                         <img src="https://picsum.photos/id/1019/1000/600/" alt="img"/>

@@ -1,17 +1,19 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 import {toast} from 'react-toastify';
 import {useParams, useNavigate} from 'react-router-dom';
-import {config} from "../constants/index";
+import PostDataService from "../services/post.service";
+//localization
+import { useTranslation } from 'react-i18next';
 
 const EditPost=() => {
+    const {t} = useTranslation();
     const {id} = useParams();
     const [title , setTitle] = useState("")
     const [description , setDescription] = useState("")
     let navigate = useNavigate();
 
     useEffect(async ()=>{
-        const result=await axios.get(process.env.REACT_APP_API_URL+'/edit-post/'+id, config);
+        const result=await PostDataService.edit(id);
         const data=result.data.data
         // console.log(response)
 
@@ -24,7 +26,7 @@ const EditPost=() => {
         const data={title, description}
         console.log(data)
 
-        const result=await axios.put(`${process.env.REACT_APP_API_URL}/update-post/${id}`, data, config);
+        const result=await PostDataService.update(id, data);
         const response=result.data
 
         toast(response.message)
@@ -33,6 +35,9 @@ const EditPost=() => {
 
     return(
         <div className="col-md-12">
+            <div className="col-md-12">
+                <h4 className="text-danger">{t('post.edit post')}</h4>
+            </div>
             <form onSubmit={handleSubmit}>
                 <div className="row">
                     <div className="col-md-12">

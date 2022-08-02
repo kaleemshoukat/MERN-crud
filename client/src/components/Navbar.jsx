@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 import {config} from "../constants/index";
 import {useNavigate} from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Navbar=()=>{
     let navigate = useNavigate();
@@ -15,6 +16,12 @@ const Navbar=()=>{
             sessionStorage.setItem('token', '');
             navigate('/');
         }
+    }
+
+    const { i18n } = useTranslation();
+
+    function changeLanguage(e) {
+        i18n.changeLanguage(e.target.value);
     }
 
     return (
@@ -42,6 +49,15 @@ const Navbar=()=>{
                     <Link to="/crypto" className="nav-link">
                         Crypto Prices
                     </Link>
+                </li>
+                <li className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Language
+                    </a>
+                    <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><button className="dropdown-item" onClick={changeLanguage} value='en'>English</button></li>
+                        <li><button className="dropdown-item" onClick={changeLanguage} value='ur'>Urdu</button></li>
+                    </ul>
                 </li>
                 <li className="nav-item" onClick={logout}>
                     <a className="nav-link">

@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
 import ReactPaginate from 'react-paginate';
 import {Link} from 'react-router-dom';
 import {confirmAlert} from 'react-confirm-alert';
 import {toast} from 'react-toastify';
 import Loader from '../components/Loader';
-import {config} from "../constants/index";
+import PostDataService from "../services/post.service";
+//localization
+import { useTranslation } from 'react-i18next';
 
 const Posts = () => {
+    const { t } = useTranslation();
     // We start with an empty list of items.
     const itemsPerPage=10
     const [currentItems, setCurrentItems] = useState(null);
@@ -25,8 +27,7 @@ const Posts = () => {
     };
 
     const paginate=async (itemOffset, itemsPerPage)=>{
-        console.log(JSON.stringify(config))
-        const result= await axios.get(process.env.REACT_APP_API_URL+'/posts?limit='+itemsPerPage+'&offset='+itemOffset, config)
+        const result= await PostDataService.getAll(itemsPerPage, itemOffset)
         const response= result.data;
 
         setCurrentItems(response.items);
@@ -52,7 +53,7 @@ const Posts = () => {
                     label: 'Yes',
                     onClick: async () => {
                         //alert('Click Yes')
-                        const result= await axios.delete(`${process.env.REACT_APP_API_URL}/delete-post/${id}`, config)
+                        const result= await PostDataService.delete(id)
                         const response= result.data;
 
                         if (response.status){
@@ -78,6 +79,9 @@ const Posts = () => {
     if(loading===false) return <Loader/>;
     return(
         <div className="table-responsive">
+            <div className="col-md-12">
+                <h4 className="text-danger">{t('post.posts')}</h4>
+            </div>
             <table className="table">
                 <thead>
                 <tr>

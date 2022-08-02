@@ -14,6 +14,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { createBrowserHistory } from "history";
 //routes
 import {appRoutes} from "./routes"
+//localization
+import './i18n/config'
 
 function App() {
 

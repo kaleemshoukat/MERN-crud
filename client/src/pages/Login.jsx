@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import axios from "axios";
 import Joi from "joi";
 import {toast} from 'react-toastify';
 import {useNavigate} from 'react-router-dom';
 import Google from "../components/login/Google";
+import AuthDataService from "../services/auth.service";
 
 const Login=() => {
     let navigate = useNavigate();
@@ -55,7 +55,7 @@ const Login=() => {
         }
         else {
             try {
-                const result=await axios.post(process.env.REACT_APP_API_URL+'/login', formData);
+                const result=await AuthDataService.login(formData);
                 const response=result.data
 
                 if (response.status){
