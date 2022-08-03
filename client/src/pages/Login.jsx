@@ -64,6 +64,7 @@ const Login=() => {
 
                     const user=response.data.user
                     sessionStorage.setItem('token', user.token);
+                    //await new Promise(resolve => setTimeout(resolve, 2000));
 
                     navigate('/posts');
                 }

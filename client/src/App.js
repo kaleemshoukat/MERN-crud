@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 //toaster
@@ -14,20 +14,24 @@ import { createBrowserHistory } from "history";
 import {appRoutes} from "./routes"
 //localization
 import './i18n/config'
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 function App() {
 
-    function getToken() {
+    function getToken1() {
         const token = sessionStorage.getItem('token');
         return token;
     }
 
     const history=createBrowserHistory();
-    const token=getToken();
+    const token=getToken1();
     if(!token || token==='') {
         history.push('/');
     }
     // console.log('token' ,token);
+
+    const [isTokenFound, setTokenFound] = useState(false);
+    getToken(setTokenFound);
 
     return(
         <div className="main-warp">
