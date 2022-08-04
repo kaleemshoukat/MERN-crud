@@ -14,6 +14,8 @@ import { createBrowserHistory } from "history";
 import {appRoutes} from "./routes"
 //localization
 import './i18n/config'
+//firebase
+import { onMessageListener } from "./firebase";
 
 function App() {
 
@@ -27,6 +29,17 @@ function App() {
     if(!token || token==='') {
         history.push('/');
     }
+
+    useState(()=> {
+        onMessageListener()
+            .then((payload) => {
+                const { title, body } = payload.data;
+                //toast.info(`${title}; ${body}`);
+            })
+            .catch((err) => {
+                //toast.error(JSON.stringify(err));
+            });
+    }, [])
 
     return(
         <div className="main-warp">

@@ -1,11 +1,39 @@
 const Post = require('../models/Post');     //model
+const User = require('../models/user');     //model
+const firebaseService = require('../services/firebaseService')
 
-exports.submitPost= (req, res) => {
+exports.submitPost= async (req, res) => {
     try{
+        const body=req.body
         let post=new Post()
-        post.title= req.body.title
-        post.description= req.body.description
+        post.title= body.title
+        post.description= body.description
         post.save()
+
+        //firebase
+        const user=await User.findById(req.user_id)
+        const firebaseToken=user.firebaseToken
+        if (firebaseToken){
+            var payload = {
+                notification: {
+                    title: body.title,
+                    body: body.description
+                }
+            };
+            var options = {
+                priority: "high",
+                sound: "default",
+                timeToLive: 60 * 60 * 24
+            };
+
+            firebaseService.admin.sendToDevice(firebaseToken, payload, options)
+                .then(function(response) {
+                    console.log("Successfully sent message:", response);
+                })
+                .catch(function(error) {
+                    console.log("Error sending message:", error);
+                });
+        }
 
         res.status(200).json({
             status:true,
