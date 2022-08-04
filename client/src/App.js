@@ -14,7 +14,6 @@ import { createBrowserHistory } from "history";
 import {appRoutes} from "./routes"
 //localization
 import './i18n/config'
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 function App() {
 
@@ -28,10 +27,6 @@ function App() {
     if(!token || token==='') {
         history.push('/');
     }
-    // console.log('token' ,token);
-
-    const [isTokenFound, setTokenFound] = useState(false);
-    getToken(setTokenFound);
 
     return(
         <div className="main-warp">

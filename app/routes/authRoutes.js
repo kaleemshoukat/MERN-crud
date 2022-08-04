@@ -10,6 +10,7 @@ router.post('/login-social', authController.loginSocial);
 
 router.use(authMiddleware.authenticateTokenApi)
 router.get('/logout', authController.logout)
+router.post('/store-token', authController.storeToken)
 
 // export to use in server.js
 module.exports = router;

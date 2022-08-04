@@ -87,3 +87,18 @@ exports.loginSocial= async (req, res) => {
         return res.status(422).send(apiResponse.error(error.message))
     }
 }
+
+exports.storeToken= async (req, res) => {
+    try{
+        const body=req.body
+
+        const user=await User.findById(req.user_id)
+        user.firebaseToken=body.firebaseToken
+        user.save()
+
+        return res.status(200).send(apiResponse.success("Firebase token saved!"))
+    }
+    catch (error){
+        return res.status(422).send(apiResponse.error(error.message))
+    }
+}

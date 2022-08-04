@@ -5,8 +5,11 @@ import {confirmAlert} from 'react-confirm-alert';
 import {toast} from 'react-toastify';
 import Loader from '../components/Loader';
 import PostDataService from "../services/post.service";
+import AuthDataService from "../services/auth.service";
 //localization
 import { useTranslation } from 'react-i18next';
+//firebase
+import { requestFirebaseNotificationPermission  } from "../firebase";
 
 const Posts = () => {
     const { t } = useTranslation();
@@ -40,6 +43,21 @@ const Posts = () => {
         await paginate(itemOffset, itemsPerPage);
         setLoading(true)
         console.log("UseEffect",loading);
+
+        //store token of user
+        requestFirebaseNotificationPermission()
+            .then(async (firebaseToken) => {
+                // eslint-disable-next-line no-console
+                console.log(firebaseToken);
+
+                const data={firebaseToken: firebaseToken}
+                const result= await AuthDataService.storeToken(data)
+                const response= result.data;
+                console.log(response);
+            })
+            .catch((err) => {
+                return err;
+            });
 
     },  [itemOffset, itemsPerPage]);
 

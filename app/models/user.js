@@ -48,6 +48,10 @@ var UserSchema =new Schema({
         type: String,
         default: ''
     },
+    firebaseToken: {
+        type: String,
+        default: ''
+    },
     provider: {
         type: String,
         max: 255,

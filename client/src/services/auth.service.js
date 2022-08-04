@@ -10,6 +10,9 @@ class AuthDataService {
     logout() {
         return http.get(`/logout`);
     }
+    storeToken(data) {
+        return http.post(`/store-token`, data);
+    }
 }
 
 export default new AuthDataService();
