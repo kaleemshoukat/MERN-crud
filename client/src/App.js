@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 //toaster
-import { ToastContainer} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 //confirm alert css
 import 'react-confirm-alert/src/react-confirm-alert.css';
@@ -16,7 +16,6 @@ import {appRoutes} from "./routes"
 import './i18n/config'
 //firebase
 import { onMessageListener } from "./firebase";
-import {toast} from 'react-toastify';
 
 function App() {
 
