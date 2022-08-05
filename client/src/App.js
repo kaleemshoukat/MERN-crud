@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 //toaster
@@ -16,6 +16,7 @@ import {appRoutes} from "./routes"
 import './i18n/config'
 //firebase
 import { onMessageListener } from "./firebase";
+import {toast} from 'react-toastify';
 
 function App() {
 
@@ -30,15 +31,21 @@ function App() {
         history.push('/');
     }
 
-    useState(()=> {
-        onMessageListener()
-            .then((payload) => {
-                const { title, body } = payload.data;
-                //toast.info(`${title}; ${body}`);
-            })
-            .catch((err) => {
-                //toast.error(JSON.stringify(err));
-            });
+    // onMessageListener()
+    //     .then((payload) => {
+    //         const { title, body } = payload.data;
+    //         toast(title);
+    //     })
+    //     .catch((err) => {
+    //         toast(JSON.stringify(err));
+    //     });
+
+    useEffect(()=> {
+        navigator.serviceWorker.addEventListener("message", (message) => {
+            console.log(message)
+            const data=message.data.firebaseMessaging.payload.notification
+            toast(data.title+'<br>'+data.body);
+        });
     }, [])
 
     return(
