@@ -1,11 +1,39 @@
 const Post = require('../models/Post');     //model
+const User = require('../models/user');     //model
+const firebaseService = require('../services/firebaseService')
 
-exports.submitPost= (req, res) => {
+exports.submitPost= async (req, res) => {
     try{
+        const body=req.body
         let post=new Post()
-        post.title= req.body.title
-        post.description= req.body.description
+        post.title= body.title
+        post.description= body.description
         post.save()
+
+        //firebase
+        const user=await User.findById(req.user_id)
+        const firebaseToken=user.firebaseToken
+        if (firebaseToken){
+            var payload = {
+                notification: {
+                    title: body.title,
+                    body: body.description
+                }
+            };
+            var options = {
+                priority: "high",
+                sound: "default",
+                timeToLive: 60 * 60 * 24
+            };
+
+            firebaseService.admin.sendToDevice(firebaseToken, payload, options)
+                .then(function(response) {
+                    console.log("Successfully sent message:", response);
+                })
+                .catch(function(error) {
+                    console.log("Error sending message:", error);
+                });
+        }
 
         res.status(200).json({
             status:true,
@@ -30,11 +58,26 @@ exports.posts=async (req, res, next)=> {
     // }
 
     try {
-        const limit=req.query.limit
-        const offset=req.query.offset
+        const query=req.query
+        const limit=query.limit
+        const offset=query.offset
+        const search=query.search
 
-        const items=await Post.find({}).limit(limit).skip(offset)
-        const itemCount =await Post.count({})
+        let searchQuery
+        if (search !== null && search !== undefined && search !== 'null' && search !== ''){
+            searchQuery={
+                $or: [
+                    { title: { $regex: search, $options: "i" } },
+                    { description: { $regex: search, $options: "i" } },
+                ]
+            }
+        }
+        else{
+            searchQuery={}
+        }
+
+        const items=await Post.find(searchQuery).limit(limit).skip(offset)
+        const itemCount =await Post.count(searchQuery)
 
         return res.status(200).json({
             status:true,

@@ -1,0 +1,4 @@
+export const authConstants = {
+    AUTHENTICATED: 'AUTHENTICATED',
+    NOT_AUTHENTICATED: 'NOT_AUTHENTICATED'
+};

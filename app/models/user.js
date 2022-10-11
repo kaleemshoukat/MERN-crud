@@ -44,6 +44,25 @@ var UserSchema =new Schema({
         max: 255,
         required: true,
     },
+    token: {
+        type: String,
+        default: ''
+    },
+    firebaseToken: {
+        type: String,
+        default: ''
+    },
+    provider: {
+        type: String,
+        max: 255,
+        default: '',
+        enum: ['google', 'facebook', '']
+    },
+    provider_id: {
+        type: String,
+        max: 255,
+        default: ''
+    },
 },{
     timestamps: true
 });

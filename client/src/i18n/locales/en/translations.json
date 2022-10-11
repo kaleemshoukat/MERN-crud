@@ -1,0 +1,18 @@
+{
+  "crypto": "Live Values of Crypto Currencies.",
+  "gallery": "Image Gallery Example",
+  "slick": "Slick Slider Example",
+  "post" : {
+    "add post": "Add Post",
+    "edit post": "Edit Post",
+    "posts": "Posts"
+  },
+  "user" : {
+    "add user": "Add User",
+    "edit user": "Edit User",
+    "users": "Users"
+  },
+  "submit" : "Submit",
+  "update" : "Update",
+  "edit" : "Edit"
+}

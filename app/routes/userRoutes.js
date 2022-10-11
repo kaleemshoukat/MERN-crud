@@ -8,6 +8,7 @@ router.get('/list', userController.list);
 router.delete('/delete/:id', userController.delete);
 router.get('/edit/:id', userController.edit);
 router.put('/update/:id', userController.update);
+router.get('/chart', userController.chart);
 
 // export to use in server.js
 module.exports = router;
